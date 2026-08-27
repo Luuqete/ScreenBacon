@@ -24,6 +24,8 @@ import { getDeskreenGlobal } from '../main/helpers/getDeskreenGlobal';
 import getMyLocalIpV4 from '../main/helpers/getMyLocalIpV4';
 import { getClientViewerDistPath } from './getClientViewerDistPath';
 
+import {setID,setPort} from "../screen-bacon/screen-bacon"
+
 const { hostname, primaryPort, backupPort } = config;
 
 const getRoomIdHash = (id: string): string => {
@@ -32,6 +34,7 @@ const getRoomIdHash = (id: string): string => {
 
 const ioHandleOnConnection = (socket): void => {
 	const { roomId } = socket.handshake.query;
+	
 	const store = getStore();
 
 	setTimeout(async () => {
@@ -54,6 +57,7 @@ const ioHandleOnConnection = (socket): void => {
 			socket,
 			room: parsedRoom as Room,
 		});
+		setID(roomId)
 		// }
 	}, 500); // timeout 500 millisecond for throttling malicious connections
 };
@@ -142,6 +146,8 @@ class DeskreenSignalingServer {
 			serveClient: false,
 		});
 
+		
+
 		io.sockets.on('connection', (socket) => {
 			const socketId = socket.id;
 
@@ -159,6 +165,7 @@ class DeskreenSignalingServer {
 	async start(): Promise<http.Server> {
 		startPollForInactiveRooms();
 		this.server = await this.callListenOnHttpServer();
+		//onConnected()
 		return this.server;
 	}
 
@@ -167,6 +174,7 @@ class DeskreenSignalingServer {
 			this.log.info(
 				`Deskreen CE signaling server is online at port ${this.port}`,
 			);
+			setPort(`${this.port}`)
 			this.log.info(
 				`🌐 Server available at http://${this.hostname}:${this.port}`,
 			);

@@ -6,7 +6,8 @@
 		"src/preload/**/*",
 		"src/server/**/*",
 		"src/features/**/*",
-		"src/common/**/*"
+		"src/common/**/*",
+		"src/screen-bacon/**/*"
 	],
 	"compilerOptions": {
 		"composite": true,

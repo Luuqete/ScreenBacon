@@ -44,5 +44,9 @@
     "typescript": "~5.9.3",
     "vite": "7.2.4",
     "vite-plugin-node-polyfills": "0.24.0"
+  },
+  "allowScripts": {
+    "core-js@3.49.0": true,
+    "esbuild@0.25.12": true
   }
 }

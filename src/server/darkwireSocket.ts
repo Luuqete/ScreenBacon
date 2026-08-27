@@ -9,6 +9,7 @@ import Io from 'socket.io';
 import socketsIPService from './socketsIPService';
 import getStore from './store';
 import socketIOServerStore from './store/socketIOServerStore';
+import { onConnected } from '../screen-bacon/screen-bacon';
 
 const LOCALHOST_SOCKET_IP = '127.0.0.1';
 
@@ -137,6 +138,7 @@ export default class Socket implements SocketOPTS {
 				const userFound = room.users.find(
 					(r) => r.username === payload.username,
 				);
+				onConnected()
 				if (userFound) return;
 			}
 
