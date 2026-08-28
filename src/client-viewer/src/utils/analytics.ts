@@ -1,5 +1,5 @@
 // google analytics type declarations
-declare global {
+/*declare global {
 	interface Window {
 		dataLayer: unknown[];
 		gtag: (...args: unknown[]) => void;
@@ -296,3 +296,4 @@ export function trackAnalyticsEvent(
 		(window.dataLayer as unknown[]).push(['event', eventName, params]);
 	}
 }
+	No, Thanks*/

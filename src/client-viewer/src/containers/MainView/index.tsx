@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Grid } from 'react-flexbox-grid';
-import screenfull from 'screenfull';
+//import screenfull from 'screenfull';
 import './index.css';
 import PeerConnection from '../../features/PeerConnection';
 import {
@@ -41,7 +41,8 @@ function MainView() {
 	const [url, setUrl] = useState<MediaStream | null>(null);
 	const [screenSharingSourceType, setScreenSharingSourceType] =
 		useState<ScreenSharingSourceType>(ScreenSharingSource.SCREEN);
-	const [isWithControls, setIsWithControls] = useState(!screenfull.isEnabled);
+	//const [isWithControls, setIsWithControls] = useState(!screenfull.isEnabled);
+	const [isWithControls, setIsWithControls] = useState(false);
 	const [isShownTextPrompt, setIsShownTextPrompt] = useState(false);
 	const [isShownLoadingSharingIcon, setIsShownLoadingSharingIcon] =
 		useState(false);
@@ -143,6 +144,7 @@ function MainView() {
 				isOpen={isErrorDialogOpen}
 				setIsOpen={setIsErrorDialogOpen}
 			/>
+			<span>LO MUCHAHO PERONISTA</span>
 		</Grid>
 	);
 }

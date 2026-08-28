@@ -1,4 +1,4 @@
-import { getConsentStatus } from './analytics';
+/*
 
 const GA_DOMAINS = [
 	'google-analytics.com',
@@ -235,3 +235,4 @@ export function initializeGARequestInterceptor(): void {
 	interceptXMLHttpRequest();
 	interceptSendBeacon();
 }
+*/

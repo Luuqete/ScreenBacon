@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+/*import { useEffect, useState } from 'react';
 import {
 	Button,
 	Classes,
@@ -12,7 +12,7 @@ import {
 import { Col, Row } from 'react-flexbox-grid';
 import { useTranslation } from 'react-i18next';
 import i18nInstance from '../../config/i18n';
-import { getConsentStatus, type ConsentStatus } from '../../utils/analytics';
+
 import './index.css';
 
 interface PrivacyControlDialogProps {
@@ -114,11 +114,11 @@ function TranslatedContent() {
 function TranslatedButtons({
 	onAccept,
 	onOptOut,
-	currentStatus,
+
 }: {
 	onAccept: () => void;
 	onOptOut: () => void;
-	currentStatus: ConsentStatus;
+
 }) {
 	const { t } = useTranslation();
 
@@ -294,4 +294,4 @@ function PrivacyControlDialog(props: PrivacyControlDialogProps) {
 	);
 }
 
-export default PrivacyControlDialog;
+export default PrivacyControlDialog;*/

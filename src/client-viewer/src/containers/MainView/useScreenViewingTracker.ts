@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { trackAnalyticsEvent } from '../../utils/analytics';
+
 import { type ErrorMessageType } from '../../components/ErrorDialog/ErrorMessageEnum';
 
 interface UseScreenViewingTrackerParams {
@@ -9,14 +9,6 @@ interface UseScreenViewingTrackerParams {
 	dialogErrorMessage: ErrorMessageType;
 }
 
-function formatErrorMessageForEvent(errorMessage: ErrorMessageType): string {
-	// convert error message to event-friendly format
-	// e.g., "An unknown error occurred" -> "an_unknown_error_occurred"
-	return errorMessage
-		.toLowerCase()
-		.replace(/[^a-z0-9\s]/g, '')
-		.replace(/\s+/g, '_');
-}
 
 export function useScreenViewingTracker(
 	params: UseScreenViewingTrackerParams,
@@ -52,17 +44,6 @@ export function useScreenViewingTracker(
 				intervalRef.current = null;
 			}
 
-			// calculate total minutes spent viewing
-			const elapsedMs = Date.now() - startTimeRef.current;
-			const elapsedMinutes = Math.floor(elapsedMs / 60000);
-			const errorReason = formatErrorMessageForEvent(dialogErrorMessage);
-
-			// send error event
-			trackAnalyticsEvent(
-				`error_dialog_reason_${errorReason}_spent_screen_viewing_${elapsedMinutes}_minutes`,
-				{},
-			);
-
 			errorEventSentRef.current = true;
 		}
 
@@ -93,7 +74,7 @@ export function useScreenViewingTracker(
 				// send event for each new minute
 				if (elapsedMinutes > lastMinuteTrackedRef.current) {
 					lastMinuteTrackedRef.current = elapsedMinutes;
-					trackAnalyticsEvent(`screen_viewing_${elapsedMinutes}_minutes`, {});
+		
 				}
 			}, 60000); // check every minute
 		}
@@ -139,7 +120,6 @@ export function useScreenViewingTracker(
 					// send event for each new minute
 					if (elapsedMinutes > lastMinuteTrackedRef.current) {
 						lastMinuteTrackedRef.current = elapsedMinutes;
-						trackAnalyticsEvent(`screen_viewing_${elapsedMinutes}_minutes`, {});
 					}
 				}, 60000);
 			}

@@ -81,7 +81,7 @@ class ScreenBacon {
                 console.log(`MANDANDO UDP POR EL BRODCAST ${brodcast} (HACÉ DE CUENTA QUE SE MANDA)`);
            // console.log(`http://${this.ip}:${this.port}/${this.id}`);
            console.log(`${message}`) 
-           await new Promise(resolve => setTimeout(resolve, 500));
+           await new Promise(resolve => setTimeout(resolve, 2000));
             }
         client.close()    
     }

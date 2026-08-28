@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useRef, useCallback } from 'react';
 import { OverlayToaster, Position } from '@blueprintjs/core';
 import { useTranslation } from 'react-i18next';
@@ -208,7 +209,7 @@ function PlayerView(props: PlayerViewProps) {
 				overflow: 'hidden',
 			}}
 		>
-			<PlayerControlPanel
+			{/*<PlayerControlPanel
 				onSwitchChangedCallback={(isEnabled) => setIsWithControls(isEnabled)}
 				isDefaultPlayerTurnedOn={isWithControls}
 				handleClickFullscreen={() => {
@@ -223,7 +224,7 @@ function PlayerView(props: PlayerViewProps) {
 				setVideoQuality={setVideoQuality}
 				selectedVideoQuality={videoQuality}
 				screenSharingSourceType={screenSharingSourceType}
-			/>
+			/>*/}
 			<div
 				id="video-container"
 				style={{
