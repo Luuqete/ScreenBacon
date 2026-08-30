@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: You're having technical issues. 🐞 And willing to share more details. If you don't know details, write here https://github.com/pavlobu/deskreen/discussions/68
+about: You're having technical issues. 🐞 And willing to share more details. If you don't know details, write here https://github.com/pavlobu/ScreenBacon/discussions/68
 labels: 'bug'
 ---
 
@@ -11,7 +11,7 @@ labels: 'bug'
 <!-- If the following boxes are not ALL checked, your issue is likely to be closed -->
 
 - [ ] Using yarn
-- [ ] Using an up-to-date [`master` branch](https://github.com/pavlobu/deskreen/tree/master)
+- [ ] Using an up-to-date [`master` branch](https://github.com/pavlobu/ScreenBacon/tree/master)
 - [ ] Using latest version of devtools. [Check the docs for how to update](https://electron-react-boilerplate.js.org/docs/dev-tools/)
 - [ ] For issue in production release, add devtools output of `DEBUG_PROD=true yarn build && yarn start`
 
@@ -51,12 +51,12 @@ labels: 'bug'
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
 - Node version :
-- Deskreen version or branch :
+- ScreenBacon version or branch :
 - Operating System and version :
 - Link to your project :
 
 <!---
-❗️❗️ Also, please consider donating (https://opencollective.com/deskreen) ❗️❗️
+❗️❗️ Also, please consider donating (https://opencollective.com/ScreenBacon) ❗️❗️
 
 Donations will ensure the following:
 

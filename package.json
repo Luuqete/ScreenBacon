@@ -1,9 +1,9 @@
 {
-  "name": "deskreen-ce",
+  "name": "ScreenBacon-ce",
   "version": "3.2.16",
   "description": "Screen sharing and present screen: Turn any device into a secondary screen for your computer",
   "main": "./out/main/index.js",
-  "author": "deskreen.com",
+  "author": "ScreenBacon.com",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "clean": "rm -rf dist out src/client-viewer/dist",
@@ -58,6 +58,7 @@
     "i18next-sync-fs-backend": "^1.1.1",
     "kcors": "^2.2.2",
     "koa": "^3.1.1",
+    "koa-compress": "^5.2.2",
     "koa-router": "^14.0.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",

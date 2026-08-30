@@ -38,9 +38,9 @@ export class PersistentStorage {
 	private data: DataStore;
 
 	/**
-	 * @param fileName The name of the file to save the data to. Defaults to 'deskreen-ce-storage.json'.
+	 * @param fileName The name of the file to save the data to. Defaults to 'ScreenBacon-ce-storage.json'.
 	 */
-	constructor(fileName = 'deskreen-ce-storage.json') {
+	constructor(fileName = 'ScreenBacon-ce-storage.json') {
 		const userDataPath = app.getPath('userData');
 		this.filePath = path.join(userDataPath, fileName);
 		this.data = readDataFromDisk(this.filePath);

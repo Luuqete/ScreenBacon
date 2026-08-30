@@ -89,26 +89,26 @@ export const initIpcMainHandlers = (mainWindow: BrowserWindow): void => {
 	);
 
 	ipcMain.handle('main-window-onbeforeunload', () => {
-		const deskreenGlobal = getDeskreenGlobal();
-		deskreenGlobal.connectedDevicesService = new ConnectedDevicesService();
-		deskreenGlobal.roomIDService = new RoomIDService();
-		deskreenGlobal.sharingSessionService.sharingSessions.forEach(
+		const ScreenBaconGlobal = getDeskreenGlobal();
+		ScreenBaconGlobal.connectedDevicesService = new ConnectedDevicesService();
+		ScreenBaconGlobal.roomIDService = new RoomIDService();
+		ScreenBaconGlobal.sharingSessionService.sharingSessions.forEach(
 			(sharingSession: SharingSession) => {
 				sharingSession.denyConnectionForPartner();
 				sharingSession.destroy();
 			},
 		);
 
-		deskreenGlobal.rendererWebrtcHelpersService.helpers.forEach(
+		ScreenBaconGlobal.rendererWebrtcHelpersService.helpers.forEach(
 			(helperWindow) => {
 				helperWindow.close();
 			},
 		);
 
-		deskreenGlobal.sharingSessionService.waitingForConnectionSharingSession =
+		ScreenBaconGlobal.sharingSessionService.waitingForConnectionSharingSession =
 			null;
-		deskreenGlobal.rendererWebrtcHelpersService.helpers.clear();
-		deskreenGlobal.sharingSessionService.sharingSessions.clear();
+		ScreenBaconGlobal.rendererWebrtcHelpersService.helpers.clear();
+		ScreenBaconGlobal.sharingSessionService.sharingSessions.clear();
 	});
 
 	ipcMain.handle('get-latest-version', () => {
@@ -120,9 +120,9 @@ export const initIpcMainHandlers = (mainWindow: BrowserWindow): void => {
 	});
 
 	ipcMain.handle('get-local-lan-ip', async () => {
-		const deskreenGlobal = getDeskreenGlobal();
-		if (deskreenGlobal.cliLocalIp) {
-			return deskreenGlobal.cliLocalIp;
+		const ScreenBaconGlobal = getDeskreenGlobal();
+		if (ScreenBaconGlobal.cliLocalIp) {
+			return ScreenBaconGlobal.cliLocalIp;
 		}
 		const ip = getMyLocalIpV4();
 		return ip;
@@ -137,28 +137,28 @@ export const initIpcMainHandlers = (mainWindow: BrowserWindow): void => {
 	});
 
 	ipcMain.handle(IpcEvents.GetAppPath, () => {
-		const deskreenGlobal = getDeskreenGlobal();
-		return deskreenGlobal.appPath;
+		const ScreenBaconGlobal = getDeskreenGlobal();
+		return ScreenBaconGlobal.appPath;
 	});
 
 	ipcMain.handle(IpcEvents.UnmarkRoomIDAsTaken, (_, roomID) => {
-		const deskreenGlobal = getDeskreenGlobal();
-		deskreenGlobal.roomIDService.unmarkRoomIDAsTaken(roomID);
+		const ScreenBaconGlobal = getDeskreenGlobal();
+		ScreenBaconGlobal.roomIDService.unmarkRoomIDAsTaken(roomID);
 	});
 
 	async function createWaitingForConnectionSharingSession(
 		roomID?: string,
 	): Promise<void> {
 		try {
-			const deskreenGlobal = getDeskreenGlobal();
+			const ScreenBaconGlobal = getDeskreenGlobal();
 			if (
-				deskreenGlobal.sharingSessionService
+				ScreenBaconGlobal.sharingSessionService
 					.waitingForConnectionSharingSession !== null
 			) {
 				return;
 			}
 			const waitingSession =
-				await deskreenGlobal.sharingSessionService.createWaitingForConnectionSharingSession(
+				await ScreenBaconGlobal.sharingSessionService.createWaitingForConnectionSharingSession(
 					roomID,
 				);
 			waitingSession.setOnDeviceConnectedCallback(onDeviceConnectedCallback);
@@ -352,9 +352,9 @@ export const initIpcMainHandlers = (mainWindow: BrowserWindow): void => {
 	);
 
 	function startSharingOnWaitingForConnectionSharingSession(): void {
-		const deskreenGlobal = getDeskreenGlobal();
+		const ScreenBaconGlobal = getDeskreenGlobal();
 		const { connectedDevicesService, sharingSessionService, roomIDService } =
-			deskreenGlobal;
+			ScreenBaconGlobal;
 		if (!connectedDevicesService.isSlotAvailable()) {
 			const waitingSession =
 				sharingSessionService.waitingForConnectionSharingSession;

@@ -1,3 +1,3 @@
-Welcome to the deskreen wiki!
+Welcome to the ScreenBacon wiki!
 
-To edit [Deskreen wiki](https://github.com/pavlobu/deskreen/wiki) please open your PR to [Deskreen Repo](https://github.com/pavlobu/deskreen) with changes in `wiki/` folder.
+To edit [ScreenBacon wiki](https://github.com/pavlobu/ScreenBacon/wiki) please open your PR to [ScreenBacon Repo](https://github.com/pavlobu/ScreenBacon) with changes in `wiki/` folder.

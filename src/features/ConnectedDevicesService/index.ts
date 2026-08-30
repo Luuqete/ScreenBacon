@@ -1,3 +1,6 @@
+//TODO Solucionar el tema de la erstricción de dispositivos
+
+
 import { Device } from '../../common/Device';
 
 export const nullDevice: Device = {

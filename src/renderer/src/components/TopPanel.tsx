@@ -155,26 +155,26 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 		setIsConnectedDevicesDrawerOpen(!isConnectedDevicesDrawerOpen);
 	}, [isConnectedDevicesDrawerOpen]);
 
-	const donateTooltipContent = t('get-deskreen-pro-tooltip');
+	const donateTooltipContent = t('get-ScreenBacon-pro-tooltip');
 
 	const handleDonateButtonClick = React.useCallback(() => {
 		window.electron.ipcRenderer.invoke(
 			IpcEvents.OpenExternalLink,
-			'https://deskreen.com/download',
+			'https://ScreenBacon.com/download',
 		);
 	}, []);
 
 	const handleTutorialButtonClick = React.useCallback(() => {
 		window.electron.ipcRenderer.invoke(
 			IpcEvents.OpenExternalLink,
-			'https://deskreen.com/howto',
+			'https://ScreenBacon.com/howto',
 		);
 	}, []);
 
 	const handleOpenDownloadPage = React.useCallback((): void => {
 		void window.electron.ipcRenderer.invoke(
 			IpcEvents.OpenExternalLink,
-			'https://deskreen.com/download',
+			'https://ScreenBacon.com/download',
 		);
 	}, []);
 
@@ -241,7 +241,7 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 						color="#D4AF37"
 					/>
 					<span className={classes.donateButtonLabel}>
-						{t('get-deskreen-pro')}
+						{t('get-ScreenBacon-pro')}
 					</span>
 				</div>
 			</Button>
@@ -338,7 +338,7 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 			id="logo-with-popover-visit-website"
 			className={classes.logoWithAppName}
 		>
-			<H3>Deskreen Community Edition</H3>
+			<H3>ScreenBacon Community Edition</H3>
 		</div>
 	);
 

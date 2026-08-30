@@ -20,7 +20,7 @@ import IntermediateStep from '@renderer/components/StepsOfStepper/IntermediateSt
 import ColorlibConnector from '@renderer/components/StepperPanel/ColorlibConnector';
 import { Device } from '../../../common/Device';
 import ColorlibStepIcon, {
-	StepIconPropsDeskreen,
+	StepIconPropsScreenBacon,
 } from '@renderer/components/StepperPanel/ColorlibStepIcon';
 import LanguageSelector from '@renderer/components/LanguageSelector';
 import { getShuffledArrayOfHello } from '@renderer/configs/i18next.config.client';
@@ -65,7 +65,7 @@ interface Props {
 	handleReset: () => void;
 }
 
-const DeskreenStepper = ({
+const ScreenBaconStepper = ({
 	activeStep,
 	setActiveStep,
 	isAllowDeviceAlertOpen,
@@ -246,14 +246,14 @@ const DeskreenStepper = ({
 		(label, idx) => {
 			return (
 				<StepLabel
-					id="step-label-deskreen"
+					id="step-label-ScreenBacon"
 					className={classes.stepLabelContent}
 					StepIconComponent={ColorlibStepIcon}
 					StepIconProps={
 						{
 							isEntireScreenSelected,
 							isApplicationWindowSelected,
-						} as StepIconPropsDeskreen
+						} as StepIconPropsScreenBacon
 					}
 				>
 					{pendingConnectionDevice && idx === 0 && isUserAllowedConnection ? (
@@ -315,7 +315,7 @@ const DeskreenStepper = ({
 							<H3>{t('no-wifi-and-lan-connection')}</H3>
 						</Row>
 						<Row center="xs">
-							<H5>{t('deskreen-ce-works-only-with-wifi-and-lan-networks')}</H5>
+							<H5>{t('ScreenBacon-ce-works-only-with-wifi-and-lan-networks')}</H5>
 						</Row>
 						<Row center="xs">
 							<Spinner size={50} />
@@ -378,4 +378,4 @@ const DeskreenStepper = ({
 	);
 };
 
-export default DeskreenStepper;
+export default ScreenBaconStepper;

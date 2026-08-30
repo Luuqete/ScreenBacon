@@ -6,7 +6,7 @@
 	}
 }
 
-const CONSENT_KEY = 'deskreen_ga_consent';
+const CONSENT_KEY = 'ScreenBacon_ga_consent';
 const GA_TAG_PLACEHOLDER = '%VITE_CLIENT_VIEWER_GA_TAG%';
 const CLIENT_VIEWER_VERSION_PLACEHOLDER = '%VITE_CLIENT_VIEWER_VERSION%';
 

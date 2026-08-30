@@ -1,15 +1,15 @@
 ---
 name: Feature request
-about: You want something small added to Deskreen and with concrete code and solution. 🎉 If it is a big enhancement drop it here https://github.com/pavlobu/deskreen/discussions/50
+about: You want something small added to ScreenBacon and with concrete code and solution. 🎉 If it is a big enhancement drop it here https://github.com/pavlobu/ScreenBacon/discussions/50
 labels: 'enhancement'
 ---
 
-# Here you post only concrete examples of enhancements with code and solutions that you have. Other BIG enhancements and general ideas of features you would like to see in Deskreen, you post here: https://github.com/pavlobu/deskreen/discussions/50
+# Here you post only concrete examples of enhancements with code and solutions that you have. Other BIG enhancements and general ideas of features you would like to see in ScreenBacon, you post here: https://github.com/pavlobu/ScreenBacon/discussions/50
 
 # Otherwise this issue will be closed.
 
 <!---
-❗️❗️ Also, please consider donating (https://opencollective.com/deskreen) ❗️❗️
+❗️❗️ Also, please consider donating (https://opencollective.com/ScreenBacon) ❗️❗️
 
 Donations will ensure the following:
 

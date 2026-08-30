@@ -61,7 +61,7 @@ Changes:
 
 Changes:
 
-- Fix quality is not set to 100% when sharing started: https://github.com/pavlobu/deskreen/issues/100
+- Fix quality is not set to 100% when sharing started: https://github.com/pavlobu/ScreenBacon/issues/100
 
 <br/>
 <br/>
@@ -96,9 +96,9 @@ Changes:
 
 - Security patches
 - Updated electron version to 11.2.1
-- fix for https://github.com/pavlobu/deskreen/issues/45
-- ? fix for https://github.com/pavlobu/deskreen/issues/56
-- ? fix for https://github.com/pavlobu/deskreen/issues/17
+- fix for https://github.com/pavlobu/ScreenBacon/issues/45
+- ? fix for https://github.com/pavlobu/ScreenBacon/issues/56
+- ? fix for https://github.com/pavlobu/ScreenBacon/issues/17
 
 <br/>
 <br/>
@@ -107,7 +107,7 @@ Changes:
 
 Changes:
 
-- Fix typos in Deskreen. Special thanks to @EdwardBetts
+- Fix typos in ScreenBacon. Special thanks to @EdwardBetts
 
 <br/>
 <br/>

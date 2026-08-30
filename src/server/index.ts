@@ -1,6 +1,6 @@
 /*
  * original JS code from darkwire.io
- * translated to typescript for Deskreen app
+ * translated to typescript for ScreenBacon app
  * by Pavlo (Paul) Buidenkov
  * */
 
@@ -24,9 +24,12 @@ import { getDeskreenGlobal } from '../main/helpers/getDeskreenGlobal';
 import getMyLocalIpV4 from '../main/helpers/getMyLocalIpV4';
 import { getClientViewerDistPath } from './getClientViewerDistPath';
 
-import {setID,setPort} from "../screen-bacon/screen-bacon"
+import { setID, setPort } from "../screen-bacon/screen-bacon"
 
 const { hostname, primaryPort, backupPort } = config;
+
+import compress from "koa-compress";
+import zlib from 'zlib';
 
 const getRoomIdHash = (id: string): string => {
 	return crypto.createHash('sha256').update(id).digest('hex');
@@ -34,7 +37,7 @@ const getRoomIdHash = (id: string): string => {
 
 const ioHandleOnConnection = (socket): void => {
 	const { roomId } = socket.handshake.query;
-	
+
 	const store = getStore();
 
 	setTimeout(async () => {
@@ -77,7 +80,7 @@ function setStaticFileHeaders(
 	});
 }
 
-class DeskreenSignalingServer {
+class ScreenBaconSignalingServer {
 	log = new Logger(__filename);
 
 	server = {} as unknown as http.Server;
@@ -116,6 +119,19 @@ class DeskreenSignalingServer {
 		this.app = new Koa();
 		const router = new Router();
 
+		this.app.use(
+			compress({
+				threshold: 2048,
+				gzip: {
+					flush: zlib.constants.Z_SYNC_FLUSH,
+				},
+				deflate: {
+					flush: zlib.constants.Z_SYNC_FLUSH,
+				},
+				br: false, // Desactivar Brotli para evitar dependencias pesadas
+			})
+		);
+
 		this.app.use(cors());
 		this.app.use(router.routes());
 
@@ -146,7 +162,7 @@ class DeskreenSignalingServer {
 			serveClient: false,
 		});
 
-		
+
 
 		io.sockets.on('connection', (socket) => {
 			const socketId = socket.id;
@@ -172,7 +188,7 @@ class DeskreenSignalingServer {
 	listenCallback() {
 		return () => {
 			this.log.info(
-				`Deskreen CE signaling server is online at port ${this.port}`,
+				`ScreenBacon CE signaling server is online at port ${this.port}`,
 			);
 			setPort(`${this.port}`)
 			this.log.info(
@@ -244,4 +260,4 @@ class DeskreenSignalingServer {
 	}
 }
 
-export const signalingServer = new DeskreenSignalingServer();
+export const signalingServer = new ScreenBaconSignalingServer();

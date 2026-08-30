@@ -83,7 +83,7 @@ function PlayerControlPanel(props: PlayerControlPanelProps) {
 
 	const handleLogoClick = useCallback(() => {
 
-		window.open('https://deskreen.com', '_blank');
+		window.open('https://ScreenBacon.com', '_blank');
 	}, []);
 
 	const handlePlayPauseClick = useCallback(() => {
@@ -136,7 +136,7 @@ function PlayerControlPanel(props: PlayerControlPanelProps) {
 												alt="logo"
 												style={{ height: '72px', marginRight: '12px' }}
 											/>
-											<H3 style={{ margin: 0 }}>Deskreen CE Viewer</H3>
+											<H3 style={{ margin: 0 }}>ScreenBacon CE Viewer</H3>
 										</Row>
 									</Button>
 								</Tooltip>

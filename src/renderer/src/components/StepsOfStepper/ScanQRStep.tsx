@@ -247,7 +247,7 @@ const ScanQRStep: React.FC = () => {
 										>
 											<img
 												src={Logo192}
-												alt={t('deskreen-logo')}
+												alt={t('ScreenBacon-logo')}
 												width={64}
 												height={64}
 											/>
@@ -319,7 +319,7 @@ const ScanQRStep: React.FC = () => {
 						}}
 					>
 						<Text className="bp3-text-muted">
-							{t('deskreen-ce-allows-only-one-client-at-same-time')}
+							{t('ScreenBacon-ce-allows-only-one-client-at-same-time')}
 						</Text>
 					</Row>
 					<Row

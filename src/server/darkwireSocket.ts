@@ -1,6 +1,6 @@
 /*
  * original JS code from darkwire.io
- * translated and adapted to typescript for Deskreen CE app
+ * translated and adapted to typescript for ScreenBacon CE app
  * */
 
 /* eslint-disable no-async-promise-executor */
@@ -41,10 +41,6 @@ export default class Socket implements SocketOPTS {
 		this.socket = socket;
 		this.roomIdOriginal = roomIdOriginal;
 		this.room = room;
-		if (room.isLocked) {
-			this.sendRoomLocked();
-			return;
-		}
 
 		this.init();
 	}
@@ -97,11 +93,6 @@ export default class Socket implements SocketOPTS {
 			acknowledgeFunction(socketsIPService.getSocketIPByID(socketID));
 		});
 
-		this.socket.on('IS_ROOM_LOCKED', async (acknowledgeFunction) => {
-			const room: Room = (await this.fetchRoom()) as Room;
-			acknowledgeFunction(room.isLocked);
-		});
-
 		this.socket.on('PING', (acknowledgeFunction) => {
 			acknowledgeFunction('PONG');
 		});
@@ -143,6 +134,7 @@ export default class Socket implements SocketOPTS {
 			}
 
 			const isOwnerSocket = isLocalhostSocket(this.socket);
+			//TODO Sacar la restricción de un solo usuario conectado
 			if (!isOwnerSocket) {
 				const connectedViewers = (room.users || []).filter((user) => {
 					return !user.isOwner;

@@ -1,26 +1,26 @@
-# Deskreen CE (Community Edition)
+# ScreenBacon CE (Community Edition)
 
 ![platform](https://img.shields.io/badge/platform-Windows%20%7C%20MacOS%20%7C%20Linux-lightgrey)
 (Over 2M downloads during 5 years since launch)
 
-![Deskreen Logo](https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png)
+![ScreenBacon Logo](https://raw.githubusercontent.com/pavlobu/ScreenBacon/master/resources/icon.png)
 
-## Deskreen turns any device with a web browser into a secondary screen for your computer
+## ScreenBacon turns any device with a web browser into a secondary screen for your computer
 
-## To learn more visit our website: [deskreen.com](https://deskreen.com)
+## To learn more visit our website: [ScreenBacon.com](https://ScreenBacon.com)
 
-## [Donate to support Deskreen Open-Source](https://deskreen.com/#contribute)
+## [Donate to support ScreenBacon Open-Source](https://ScreenBacon.com/#contribute)
 
-Deskreen is an `electron.js` based application that uses `WebRTC` to make a live stream of your computer screen to a web browser on any device. It is available for MacOS, Windows and Linux operating systems.
-The current open-source Community Edition version has limited features. If you need more features please consider upgrading to [Pro](https://deskreen.com/download) version for more features when it is released.
-
----
-
-### ▶️ [See how people use Deskreen on Youtube](https://www.youtube.com/results?search_query=deskreen) (video tutorials, demos, use cases for Deskreen day to day usage)
+ScreenBacon is an `electron.js` based application that uses `WebRTC` to make a live stream of your computer screen to a web browser on any device. It is available for MacOS, Windows and Linux operating systems.
+The current open-source Community Edition version has limited features. If you need more features please consider upgrading to [Pro](https://ScreenBacon.com/download) version for more features when it is released.
 
 ---
 
-## [Deskreen Frequently Asked Questions](https://deskreen.com/faq)
+### ▶️ [See how people use ScreenBacon on Youtube](https://www.youtube.com/results?search_query=ScreenBacon) (video tutorials, demos, use cases for ScreenBacon day to day usage)
+
+---
+
+## [ScreenBacon Frequently Asked Questions](https://ScreenBacon.com/faq)
 
 ---
 
@@ -38,45 +38,45 @@ You will need to have `node>=v23` `npm>=10` installed.
 
 ## Starting with Custom Local IP
 
-You can start Deskreen CE with a custom local IP address using the `--local-ip` or `--ip` CLI flag. This is useful when you want to specify a particular network interface IP address.
+You can start ScreenBacon CE with a custom local IP address using the `--local-ip` or `--ip` CLI flag. This is useful when you want to specify a particular network interface IP address.
 
 ### macOS
 
 ```bash
 # Using open command (recommended)
-open -a "Deskreen CE" --args --ip 192.168.1.100
+open -a "ScreenBacon CE" --args --ip 192.168.1.100
 
 # Or using the executable directly
-/Applications/Deskreen\ CE.app/Contents/MacOS/Deskreen\ CE --ip 192.168.1.100
+/Applications/ScreenBacon\ CE.app/Contents/MacOS/ScreenBacon\ CE --ip 192.168.1.100
 
 # Get your IP automatically and launch
-open -a "Deskreen CE" --args --ip "192.168.1.100"
+open -a "ScreenBacon CE" --args --ip "192.168.1.100"
 ```
 
 ### Windows
 
 ```powershell
 # Using Start-Process (PowerShell)
-Start-Process "Deskreen CE" -ArgumentList "--ip", "192.168.1.100"
+Start-Process "ScreenBacon CE" -ArgumentList "--ip", "192.168.1.100"
 
 # Or using the executable directly
-"C:\Program Files\Deskreen CE\Deskreen CE.exe" --ip 192.168.1.100
+"C:\Program Files\ScreenBacon CE\ScreenBacon CE.exe" --ip 192.168.1.100
 
 # Or from Command Prompt
-start "" "C:\Program Files\Deskreen CE\Deskreen CE.exe" --ip 192.168.1.100
+start "" "C:\Program Files\ScreenBacon CE\ScreenBacon CE.exe" --ip 192.168.1.100
 ```
 
 ### Linux
 
 ```bash
 # If installed via AppImage
-./Deskreen\ CE-*.AppImage --ip 192.168.1.100
+./ScreenBacon\ CE-*.AppImage --ip 192.168.1.100
 
 # If installed via .deb/.rpm package (usually in /usr/bin or /opt)
-deskreen-ce --ip 192.168.1.100
+ScreenBacon-ce --ip 192.168.1.100
 
 # Or using full path
-/opt/Deskreen\ CE/deskreen-ce --ip 192.168.1.100
+/opt/ScreenBacon\ CE/ScreenBacon-ce --ip 192.168.1.100
 ```
 
 **Note:** Replace `192.168.1.100` with your actual local IP address. You can find your IP using:
@@ -91,7 +91,7 @@ When using the `--ip` or `--local-ip` flag, the app will use the specified IP fo
 
 ## License
 
-AGPL-3.0 License © [Pavlo (Paul) Buidenkov](https://github.com/pavlobu/deskreen)
+AGPL-3.0 License © [Pavlo (Paul) Buidenkov](https://github.com/pavlobu/ScreenBacon)
 
 ## Copyright
 

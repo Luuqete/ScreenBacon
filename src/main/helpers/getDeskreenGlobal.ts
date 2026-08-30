@@ -1,5 +1,5 @@
-import { DeskreenGlobal } from './initGlobals';
+import { ScreenBaconGlobal } from './initGlobals';
 
-export const getDeskreenGlobal = (): DeskreenGlobal => {
-	return global as unknown as DeskreenGlobal;
+export const getDeskreenGlobal = (): ScreenBaconGlobal => {
+	return global as unknown as ScreenBaconGlobal;
 };

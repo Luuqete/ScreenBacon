@@ -49,7 +49,7 @@ import { existsSync } from 'node:fs';
 // // Some APIs can only be used after this event occurs.
 // app.whenReady().then(() => {
 //   // Set app user model id for windows
-//   electronApp.setAppUserModelId('com.deskreen');
+//   electronApp.setAppUserModelId('com.ScreenBacon');
 //
 //   // Default open or close DevTools by F12 in development
 //   // and ignore CommandOrControl + R in production.
@@ -109,7 +109,7 @@ const resolvePreloadScriptPath = (entry: 'index' | 'helperRenderer'): string => 
 	return join(baseDir, `${entry}.js`);
 };
 
-export default class DeskreenApp {
+export default class ScreenBacon {
 	mainWindow: BrowserWindow | null = null;
 
 	menuBuilder: MenuBuilder | null = null;
@@ -131,7 +131,7 @@ export default class DeskreenApp {
 		});
 
 		app.whenReady().then(async () => {
-			app.setAppUserModelId('com.deskreen-ce.app');
+			app.setAppUserModelId('com.ScreenBacon-ce.app');
 			if (process.platform === 'darwin') {
 				app.setActivationPolicy('regular');
 			}
@@ -166,13 +166,13 @@ export default class DeskreenApp {
 	private async checkForLatestVersionAndNotify(): Promise<void> {
 		try {
 			const latestAppVersion = await getNewVersionTag();
-			const deskreenGlobal = getDeskreenGlobal();
-			deskreenGlobal.latestAppVersion = latestAppVersion;
+			const ScreenBaconGlobal = getDeskreenGlobal();
+			ScreenBaconGlobal.latestAppVersion = latestAppVersion;
 			this.latestAppVersion = latestAppVersion;
 
 			if (
 				latestAppVersion === '' ||
-				latestAppVersion === deskreenGlobal.currentAppVersion ||
+				latestAppVersion === ScreenBaconGlobal.currentAppVersion ||
 				!Notification.isSupported()
 			) {
 				return;
@@ -180,21 +180,21 @@ export default class DeskreenApp {
 
 			this.showUpdateNotification(latestAppVersion);
 		} catch (error) {
-			console.error('Failed to check for Deskreen updates', error);
+			console.error('Failed to check for ScreenBacon updates', error);
 		}
 	}
 
 	private showUpdateNotification(latestAppVersion: string): void {
-		const deskreenGlobal = getDeskreenGlobal();
+		const ScreenBaconGlobal = getDeskreenGlobal();
 		const notification = new Notification({
-			title: i18n.t('deskreen-ce-update-is-available'),
-			body: `${i18n.t('your-current-version-is')} ${deskreenGlobal.currentAppVersion} | ${i18n.t(
+			title: i18n.t('ScreenBacon-ce-update-is-available'),
+			body: `${i18n.t('your-current-version-is')} ${ScreenBaconGlobal.currentAppVersion} | ${i18n.t(
 				'click-to-download-new-updated-version',
 			)} ${latestAppVersion}`,
 		});
 
 		notification.on('click', () => {
-			void shell.openExternal('https://deskreen.com/download');
+			void shell.openExternal('https://ScreenBacon.com/download');
 		});
 
 		notification.show();
@@ -217,7 +217,7 @@ export default class DeskreenApp {
 			titleBarStyle: 'hiddenInset',
 			frame: process.platform === 'darwin' ? false : true,
 			useContentSize: true,
-			title: 'Deskreen CE',
+			title: 'ScreenBacon CE',
 			// useContentSize: true,
 			autoHideMenuBar: true,
 			...(process.platform === 'linux' ? { icon } : {}),
@@ -344,5 +344,5 @@ export default class DeskreenApp {
 	}
 }
 
-export const deskreenApp = new DeskreenApp();
-deskreenApp.start();
+export const ScreenBaconApp = new ScreenBacon();
+ScreenBaconApp.start();

@@ -5,7 +5,7 @@ import MyDeviceInfoCard from '../../components/MyDeviceInfoCard';
 import type { TFunction } from 'i18next';
 import { Button, H3 } from '@blueprintjs/core';
 import ConnectingIndicator from '../../components/ConnectingIndicator';
-import DeskreenLogo from '../../images/deskreen_logo_128x128.png';
+import ScreenBaconLogo from '../../images/ScreenBacon_logo_128x128.png';
 
 interface ConnectionPropmptsProps {
 	myDeviceDetails: DeviceDetails;
@@ -97,8 +97,8 @@ function ConnectionPropmpts(props: ConnectionPropmptsProps) {
 								style={{ marginTop: '30px', marginBottom: '10px' }}
 							>
 								<img
-									src={DeskreenLogo}
-									alt="Deskreen Logo"
+									src={ScreenBaconLogo}
+									alt="ScreenBacon Logo"
 									style={{
 										width: '80px',
 										height: '80px',
@@ -107,7 +107,7 @@ function ConnectionPropmpts(props: ConnectionPropmptsProps) {
 								/>
 							</Row>
 							<Row center="xs">
-								<H3>Deskreen CE Viewer</H3>
+								<H3>ScreenBacon CE Viewer</H3>
 							</Row>
 							<Row center="xs" style={{ width: '100%', margin: '0 auto' }}>
 								<Col md={6} xl={4}>

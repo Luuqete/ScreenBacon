@@ -57,15 +57,15 @@ export default class MenuBuilder {
 
 	buildDarwinTemplate(): MenuItemConstructorOptions[] {
 		const subMenuAbout: DarwinMenuItemConstructorOptions = {
-			label: 'Deskreen CE',
+			label: 'ScreenBacon CE',
 			submenu: [
 				{
-					label: this.i18n.t('about-deskreen'),
+					label: this.i18n.t('about-ScreenBacon'),
 					selector: 'orderFrontStandardAboutPanel:',
 				},
 				{ type: 'separator' },
 				{
-					label: this.i18n.t('hide-deskreen'),
+					label: this.i18n.t('hide-ScreenBacon'),
 					accelerator: 'Command+H',
 					selector: 'hide:',
 				},
@@ -185,14 +185,14 @@ export default class MenuBuilder {
 				{
 					label: this.i18n.t('learn-more'),
 					click() {
-						shell.openExternal('https://www.deskreen.com');
+						shell.openExternal('https://www.ScreenBacon.com');
 					},
 				},
 				// {
 				//   label: this.i18n.t('Documentation'),
 				//   click() {
 				//     shell.openExternal(
-				//       'https://github.com/pavlobu/deskreen/blob/master/README.md'
+				//       'https://github.com/pavlobu/ScreenBacon/blob/master/README.md'
 				//     );
 				//   },
 				// },
@@ -200,14 +200,14 @@ export default class MenuBuilder {
 				//   label: this.i18n.t('Community Discussions'),
 				//   click() {
 				//     shell.openExternal(
-				//       'https://github.com/pavlobu/deskreen/discussions'
+				//       'https://github.com/pavlobu/ScreenBacon/discussions'
 				//     );
 				//   },
 				// },
 				// {
 				//   label: this.i18n.t('Search Issues'),
 				//   click() {
-				//     shell.openExternal('https://github.com/pavlobu/deskreen/issues');
+				//     shell.openExternal('https://github.com/pavlobu/ScreenBacon/issues');
 				//   },
 				// },
 			],

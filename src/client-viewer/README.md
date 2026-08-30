@@ -1,3 +1,3 @@
-# Deskreen CE Client-Viewer
+# ScreenBacon CE Client-Viewer
 
-AGPL-3.0 License © [Pavlo (Paul) Buidenkov](https://github.com/pavlobu/deskreen)
+AGPL-3.0 License © [Pavlo (Paul) Buidenkov](https://github.com/pavlobu/ScreenBacon)

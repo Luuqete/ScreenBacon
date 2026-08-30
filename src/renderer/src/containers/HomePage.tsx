@@ -3,7 +3,7 @@ import { Classes } from '@blueprintjs/core';
 import { ToastProvider, DefaultToast } from 'react-toast-notifications';
 
 import { LIGHT_UI_BACKGROUND } from './SettingsProvider';
-import DeskreenStepper from './DeskreenStepper';
+import ScreenBaconStepper from './DeskreenStepper';
 import { Device } from '../../../common/Device';
 import TopPanel from '@renderer/components/TopPanel';
 import ScreenRecordingPermissionModal from '@renderer/components/ScreenRecordingPermissionModal';
@@ -64,7 +64,7 @@ export default function HomePage(): React.ReactElement {
 		>
 			<div className={Classes.TREE}>
 				<TopPanel handleReset={handleResetWithSharingSessionRestart} />
-				<DeskreenStepper
+				<ScreenBaconStepper
 					activeStep={activeStep}
 					setActiveStep={setActiveStep}
 					isAllowDeviceAlertOpen={isAllowDeviceAlertOpen}

@@ -6,7 +6,7 @@ import RoomIDService from '../../server/RoomIDService';
 import DesktopCapturerSources from '../../features/DesktopCapturerSourcesService';
 import DesktopCapturerSourcesService from '../../features/DesktopCapturerSourcesService';
 
-export interface DeskreenGlobal {
+export interface ScreenBaconGlobal {
 	appPath: string;
 	rendererWebrtcHelpersService: RendererWebrtcHelpersService;
 	roomIDService: RoomIDService;
@@ -19,20 +19,20 @@ export interface DeskreenGlobal {
 }
 
 export const initGlobals = (appPath: string, cliLocalIp?: string) => {
-	const deskreenGlobal: DeskreenGlobal = global as unknown as DeskreenGlobal;
+	const ScreenBaconGlobal: ScreenBaconGlobal = global as unknown as ScreenBaconGlobal;
 
-	deskreenGlobal.appPath = appPath;
-	deskreenGlobal.rendererWebrtcHelpersService =
+	ScreenBaconGlobal.appPath = appPath;
+	ScreenBaconGlobal.rendererWebrtcHelpersService =
 		new RendererWebrtcHelpersService(appPath);
-	deskreenGlobal.roomIDService = new RoomIDService();
-	deskreenGlobal.connectedDevicesService = new ConnectedDevicesService();
-	deskreenGlobal.sharingSessionService = new SharingSessionService(
-		deskreenGlobal.roomIDService,
-		deskreenGlobal.connectedDevicesService,
-		deskreenGlobal.rendererWebrtcHelpersService,
+	ScreenBaconGlobal.roomIDService = new RoomIDService();
+	ScreenBaconGlobal.connectedDevicesService = new ConnectedDevicesService();
+	ScreenBaconGlobal.sharingSessionService = new SharingSessionService(
+		ScreenBaconGlobal.roomIDService,
+		ScreenBaconGlobal.connectedDevicesService,
+		ScreenBaconGlobal.rendererWebrtcHelpersService,
 	);
-	deskreenGlobal.desktopCapturerSourcesService = new DesktopCapturerSources();
-	deskreenGlobal.latestAppVersion = '';
-	deskreenGlobal.currentAppVersion = app.getVersion();
-	deskreenGlobal.cliLocalIp = cliLocalIp;
+	ScreenBaconGlobal.desktopCapturerSourcesService = new DesktopCapturerSources();
+	ScreenBaconGlobal.latestAppVersion = '';
+	ScreenBaconGlobal.currentAppVersion = app.getVersion();
+	ScreenBaconGlobal.cliLocalIp = cliLocalIp;
 };

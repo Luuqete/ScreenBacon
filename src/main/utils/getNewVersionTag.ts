@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const githubApiRepoLatestReleaseUrl =
-	'https://api.github.com/repos/pavlobu/deskreen/releases/latest';
+	'https://api.github.com/repos/pavlobu/ScreenBacon/releases/latest';
 
 export default async function getNewVersionTag(): Promise<string> {
 	try {
@@ -18,7 +18,7 @@ export default async function getNewVersionTag(): Promise<string> {
 
 		return tagName.startsWith('v') ? tagName.slice(1) : tagName;
 	} catch (error) {
-		console.error('Failed to fetch latest Deskreen release tag', error);
+		console.error('Failed to fetch latest ScreenBacon release tag', error);
 		return '';
 	}
 }

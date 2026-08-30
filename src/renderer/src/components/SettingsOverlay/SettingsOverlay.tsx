@@ -87,7 +87,7 @@ export default function SettingsOverlay(
 	const handleOpenDownload = useCallback((): void => {
 		void window.electron.ipcRenderer.invoke(
 			IpcEvents.OpenExternalLink,
-			'https://deskreen.com/download',
+			'https://ScreenBacon.com/download',
 		);
 	}, []);
 
@@ -159,7 +159,7 @@ export default function SettingsOverlay(
 							onKeyDown={handleUpdateCalloutKeyDown}
 						>
 							<Text style={{ fontWeight: 600 }}>
-								{t('deskreen-ce-update-is-available')}
+								{t('ScreenBacon-ce-update-is-available')}
 							</Text>
 							<Text>{`${t('your-current-version-is')} ${currentVersion}`}</Text>
 							<Text>{`${t('click-to-download-new-updated-version')} ${latestVersion}`}</Text>
@@ -197,7 +197,7 @@ export default function SettingsOverlay(
 							/>
 						</Col>
 						<Col xs={12}>
-							<H3>{t('about-deskreen')}</H3>
+							<H3>{t('about-ScreenBacon')}</H3>
 						</Col>
 						<Col xs={12}>
 							<Text>{`${t('version')}: ${currentVersion} (${currentVersion})`}</Text>
@@ -223,7 +223,7 @@ export default function SettingsOverlay(
 							<Text>
 								{`${t('website')}: `}
 								<a
-									href="https://www.deskreen.com"
+									href="https://www.ScreenBacon.com"
 									target="_blank"
 									rel="noopener noreferrer"
 									className="bp3-link"
@@ -232,7 +232,7 @@ export default function SettingsOverlay(
 										textDecoration: 'none',
 									}}
 								>
-									https://www.deskreen.com
+									https://www.ScreenBacon.com
 								</a>
 							</Text>
 						</Col>

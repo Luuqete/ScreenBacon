@@ -1,5 +1,5 @@
 (function () {
-	const CONSENT_KEY = 'deskreen_ga_consent';
+	const CONSENT_KEY = 'ScreenBacon_ga_consent';
 	const GA_DOMAINS = [
 		'google-analytics.com',
 		'googletagmanager.com',

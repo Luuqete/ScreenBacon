@@ -21,18 +21,15 @@ function getDeviceId(): string {
     return id;
 }
 
-
 class ScreenBacon {
-    private ip: string | null = null;
-    private mask: string | null = null;
     private port: string | null = null;
     private id: string | null = null;
     private udp: boolean = true;
+    private interfaces: Map<string, {ip:string,brodcast:string}> | null = null;
     private static instance: ScreenBacon | null = null;
     constructor() {
-        this.ip = this.getIp();
-        this.mask = this.getMask();
-        console.log(`IP ${this.ip} MASK ${this.mask}`)
+        this.interfaces = new Map<string, {ip:string,brodcast:string}>();
+        this.loadNetworkInterfaces();
     }
 
     public setPort(port: string) {
@@ -46,44 +43,51 @@ class ScreenBacon {
 
     public async sendUDP() {
         this.udp = true;
-        let brodcast = this.getBroadcastAddress(this.ip, this.mask);
         console.log("SUPONESE QUE EMPEZARÍA LA UDP OOOOOOOOOOAAAAAAAA NDEAH TIRABA ESA ");
 
-        const protocol:Protocol = {ip:this.ip!, port:this.port!, sessionId:this.id!,deviceId:getDeviceId(),version:"0.1.0"} 
+        const protocol: Protocol = { ip: "", port: this.port!, sessionId: this.id!, deviceId: getDeviceId(), version: "0.1.0" }
 
-        const client = dgram.createSocket('udp4');
-        //const message = Buffer.from(`http://${this.ip}:${this.port}/${this.id}`);
-        const message = Buffer.from(JSON.stringify(protocol));
+        const client = dgram.createSocket('udp4');       
 
         client.bind(0, () => {
             client.setBroadcast(true);
-            this.sendLoop(client,message,brodcast);
+            this.sendLoop(client, protocol);
             console.log("Socket UDP listo");
-            
-        });
 
-        
+        });
     }
 
     private async sendLoop(
         client,
-        message,
-        brodcast
-    ){
+        protocol,
+    ) {
         while (this.udp) {
-                client.send(message, 9547, brodcast, (err) => {
-                    if (err) {
-                        console.error("UDP error:", err);
-                    } else {
-                        console.log("Message sent");
-                    }
-                });
-                console.log(`MANDANDO UDP POR EL BRODCAST ${brodcast} (HACÉ DE CUENTA QUE SE MANDA)`);
-           // console.log(`http://${this.ip}:${this.port}/${this.id}`);
-           console.log(`${message}`) 
-           await new Promise(resolve => setTimeout(resolve, 2000));
+
+            for (const [name, {ip,brodcast}] of this.interfaces!) {
+                try {
+                    const message = Buffer.from(JSON.stringify({ ...protocol, ip:ip }));
+                    
+                    console.log(`MANDANDO UDP POR EL BRODCAST ${brodcast} (HACÉ DE CUENTA QUE SE MANDA)`);
+                    console.log(`http://${ip}:${this.port}/${this.id}`);
+                    
+                    client.send(message, 9547, brodcast, (err) => {
+                        if (err) {
+                            console.error("UDP error:", err);
+                        } else {
+                            console.log("Message sent");
+                        }
+                    });
+                    
+                    console.log(`${message}`);
+                } catch (error) {
+                    this.interfaces?.delete(name);
+                    console.log(`INterface ${name} deleted, error ${error}`);
+                }
             }
-        client.close()    
+
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+        client.close()
     }
 
     public async onConnected() {
@@ -98,44 +102,18 @@ class ScreenBacon {
         return ScreenBacon.instance;
     }
 
-
-    
-    private getIp(): string {
+    private loadNetworkInterfaces() {
         const networkInterfaces = os.networkInterfaces();
-        let toRet = "";
-        // Find first non-internal IPv4 address
         for (const name of Object.keys(networkInterfaces)) {
             for (const iface of networkInterfaces[name]) {
                 if (iface.family === 'IPv4' && !iface.internal) {
-                    toRet = iface.address;
-                    break;
+                    this.interfaces?.set(name, {ip:iface.address, brodcast:this.getBroadcastAddress(iface.address, iface.netmask)});
                 }
             }
         }
-        return toRet;
     }
 
-    private getMask(): string {
-        const networkInterfaces = os.networkInterfaces();
-
-        for (const name of Object.keys(networkInterfaces)) {
-            const interfaces = networkInterfaces[name];
-            if (!interfaces) continue;
-
-            for (const iface of interfaces) {
-                // Check for both 'IPv4' string and number 4 for Node version compatibility
-                const isIPv4 = iface.family === 'IPv4' || (iface.family as unknown) === 4;
-
-                if (isIPv4 && !iface.internal) {
-                    return iface.netmask;
-                }
-            }
-        }
-
-        return "";
-    }
-
-    private getBroadcastAddress(ipAddress, netmask) {
+    private getBroadcastAddress(ipAddress, netmask): string {
 
         const ipParts = ipAddress.split('.').map(Number);
         const maskParts = netmask.split('.').map(Number);
