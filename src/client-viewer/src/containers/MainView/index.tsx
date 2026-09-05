@@ -26,7 +26,7 @@ import { LoadingSharingIconEnum } from './LoadingSharingIconEnum';
 import { useScreenViewingTracker } from './useScreenViewingTracker';
 
 function MainView() {
-	const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
+	const [isErrorDialogOpen, setIsErrorOpen] = useState(false);
 
 	const [promptStep, setPromptStep] = useState(1);
 	const [dialogErrorMessage, setDialogErrorMessage] =
@@ -70,13 +70,23 @@ function MainView() {
 		setConnectionRoomId(fallbackRoomId);
 	}, []);
 
+	const setIsErrorDialogOpen = (open: boolean) => {
+		setIsErrorOpen(()=>{
+			if (!window.AndroidBridge){
+				return open;
+			} 
+			return false;
+		})
+	}
+
 	useEffect(handleSetVideoQuality(videoQuality, peer), [videoQuality, peer]);
 
 	useEffect(handleNoConnectionTimeout(myDeviceDetails, setIsErrorDialogOpen), [
 		myDeviceDetails,
-	]);
+	]); 
 
 	useEffect(
+		
 		handleCreatePeerConnection({
 			peer,
 			connectionRoomId,
@@ -92,6 +102,8 @@ function MainView() {
 		}),
 		[connectionRoomId],
 	);
+
+	
 
 	const handlePlayPause = useCallback(() => {
 		setPlaying(!playing);

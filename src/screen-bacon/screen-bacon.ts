@@ -45,7 +45,7 @@ class ScreenBacon {
         this.udp = true;
         console.log("SUPONESE QUE EMPEZARÍA LA UDP OOOOOOOOOOAAAAAAAA NDEAH TIRABA ESA ");
 
-        const protocol: Protocol = { ip: "", port: this.port!, sessionId: this.id!, deviceId: getDeviceId(), version: "0.1.0" }
+        const protocol = this.initProtocol();
 
         const client = dgram.createSocket('udp4');       
 
@@ -122,6 +122,18 @@ class ScreenBacon {
         const broadcastParts = ipParts.map((b, i) => (b | (~maskParts[i] & 0xff)));
 
         return broadcastParts.join('.');
+    }
+
+    private initProtocol():Protocol{
+        return  {
+            ip: "", 
+            port: this.port!,
+            sessionId: this.id!,
+            deviceId: getDeviceId(),
+            version: "0.1.0", 
+            hostname:os.hostname(),
+            username: os.userInfo().username,
+        }
     }
 }
 

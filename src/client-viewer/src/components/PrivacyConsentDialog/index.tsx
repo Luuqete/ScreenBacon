@@ -240,7 +240,7 @@ function PrivacyConsentDialog(props: PrivacyConsentDialogProps) {
 						className={Classes.TEXT_MUTED}
 						style={{ textAlign: 'right', margin: 0 }}
 					>
-						{t('Privacy Notice: Analytics in ScreenBacon CE Viewer')}
+						{t('Privacy Notice: Analytics in ScreenBaconViewer')}
 					</H3>
 				</Col>
 			</Row>

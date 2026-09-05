@@ -136,7 +136,7 @@ function PlayerControlPanel(props: PlayerControlPanelProps) {
 												alt="logo"
 												style={{ height: '72px', marginRight: '12px' }}
 											/>
-											<H3 style={{ margin: 0 }}>ScreenBacon CE Viewer</H3>
+											<H3 style={{ margin: 0 }}>ScreenBaconViewer</H3>
 										</Row>
 									</Button>
 								</Tooltip>

@@ -1,4 +1,174 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState,useEffect, useCallback } from 'react';
+import { Button, Card, Text, H5, Alert, Intent } from '@blueprintjs/core';
+import { Row, Col } from 'react-flexbox-grid';
+import { useTranslation } from 'react-i18next';
+import { IpcEvents } from '../../../common/IpcEvents.enum';
+import { Device } from '../../../common/Device';
+
+
+
+type DeviceWithDesktopCapturerSourceId = Device & {
+	desktopCapturerSourceId: string;
+};
+
+export const ConnectedDevicesPanel= ({
+
+}) => {
+    const { t } = useTranslation();
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+		const [connectedDevices, setConnectedDevices] = useState<
+		DeviceWithDesktopCapturerSourceId[]
+	>([]);
+
+
+	useEffect(() => {
+		function getConnectedDevicesCallback() {
+			window.electron.ipcRenderer
+				.invoke(IpcEvents.GetConnectedDevices)
+				.then(async (devices: Device[]) => {
+					const devicesWithSourceIds: DeviceWithDesktopCapturerSourceId[] = [];
+
+					for await (const device of devices) {
+						const sharingSourceId = await window.electron.ipcRenderer.invoke(
+							IpcEvents.GetDesktopCapturerSourceIdBySharingSessionId,
+							device.sharingSessionID,
+						);
+						devicesWithSourceIds.push({
+							...device,
+							desktopCapturerSourceId: sharingSourceId,
+						});
+					}
+					setConnectedDevices(devicesWithSourceIds);
+
+					const map = new Map();
+					devicesWithSourceIds.forEach((el) => {
+						map.set(el.id, true);
+					});
+				})
+
+				.catch((e) => console.error(e));
+		}
+
+		getConnectedDevicesCallback();
+
+		const connectedDevicesInterval = setInterval(
+			getConnectedDevicesCallback,
+			4000,
+		);
+
+		return () => {
+			clearInterval(connectedDevicesInterval);
+		};
+	}, []);
+
+	const handleDisconnectOneDevice = useCallback(
+		async (id: string) => {
+			const device = connectedDevices.find((d: Device) => d.id === id);
+			if (!device) return;
+			await window.electron.ipcRenderer.invoke(
+				IpcEvents.DisconnectPeerAndDestroySharingSessionBySessionID,
+				device.sharingSessionID,
+			);
+			await window.electron.ipcRenderer.invoke(
+				IpcEvents.DisconnectDeviceById,
+				device.id,
+			);
+			setConnectedDevices(connectedDevices.filter((d: Device) => d.id !== id));
+		},
+		[connectedDevices, setConnectedDevices],
+	);
+
+    // Si no hay dispositivos, no mostramos el panel o mostramos un estado vacío sutil
+    if (connectedDevices.length === 0) {
+        return null;
+    }
+
+    return (
+        <div
+            style={{
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                backgroundColor: '#ffffff',
+                borderTop: '1px solid #E1E8ED',
+                boxShadow: '0 -2px 10px rgba(0,0,0,0.05)',
+                padding: '12px 24px',
+                zIndex: 100,
+            }}
+        >
+            <Row between="xs" middle="xs" style={{ marginBottom: '8px' }}>
+                <Col>
+                    <Text className="bp3-text-muted" style={{ fontWeight: 600, fontSize: '12px' }}>
+                        {t('connected-devices').toUpperCase()} ({connectedDevices.length})
+                    </Text>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col xs={12}>
+                    {connectedDevices.map((device) => (
+                        <Card
+                            key={device.id}
+                            elevation={0}
+                            style={{
+                                backgroundColor: '#F5F8FA',
+                                border: '1px solid #E1E8ED',
+                                borderRadius: '8px',
+                                padding: '8px 16px',
+                                marginBottom: '4px',
+                            }}
+                        >
+                            <Row between="xs" middle="xs">
+                                <Col>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <Text style={{ fontWeight: 600 }}>
+                                            {device.deviceOS || 'Dispositivo'} - {device.deviceIP}
+                                        </Text>
+                                        <Text className="bp3-text-muted" style={{ fontSize: '11px' }}>
+                                            {device.deviceBrowser || 'Browser / App'}
+                                        </Text>
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <Button
+                                        intent={Intent.DANGER}
+                                        icon="cross"
+                                        style={{ borderRadius: '20px' }}
+                                        onClick={() => handleDisconnectOneDevice(device.id)}
+                                    >
+                                        {t('disconnect')}
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Card>
+                    ))}
+                </Col>
+            </Row>
+
+            {/* Modal de confirmación para desconectar todos */}
+            <Alert
+                isOpen={isAlertOpen}
+                onClose={() => setIsAlertOpen(false)}
+                icon="warning-sign"
+                intent={Intent.DANGER}
+                confirmButtonText={t('disconnect-all-devices')}
+                cancelButtonText={t('cancel')}
+                onConfirm={() => {
+                    
+                    setIsAlertOpen(false);
+                }}
+            >
+                <H5>{t('are-you-sure-you-want-to-disconnect-all-connected-viewing-devices')}</H5>
+                <Text>{t('this-step-can-not-be-undone')}</Text>
+            </Alert>
+        </div>
+    );
+};
+
+
+/*import { useEffect, useState, useCallback } from 'react';
 import {
 	Button,
 	Text,
@@ -283,4 +453,4 @@ export default function ConnectedDevicesListDrawer(
 			</Alert>
 		</>
 	);
-}
+}*/

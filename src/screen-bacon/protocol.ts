@@ -3,5 +3,7 @@ export interface Protocol{
     port:string,
     sessionId:string,
     version:string
-    deviceId:string
+    deviceId:string,
+    hostname:string,
+    username:string
 }

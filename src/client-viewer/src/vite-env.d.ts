@@ -45,3 +45,11 @@ interface Document {
 	 */
 	onprerenderingchange?: ((this: Document, ev: Event) => void) | null;
 }
+
+interface Window {
+	AndroidBridge?: {
+		onSocketDisconnected?: (reason: string) => void;
+		onSocketConnected?: () => void;
+		[key: string]: any; // O cualquier otro método que expongas desde Java/Kotlin
+	};
+}

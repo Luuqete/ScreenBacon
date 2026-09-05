@@ -63,7 +63,7 @@ export default function HomePage(): React.ReactElement {
 			components={{ Toast: CustomToastWithTheme }}
 		>
 			<div className={Classes.TREE}>
-				<TopPanel handleReset={handleResetWithSharingSessionRestart} />
+				<TopPanel />
 				<ScreenBaconStepper
 					activeStep={activeStep}
 					setActiveStep={setActiveStep}

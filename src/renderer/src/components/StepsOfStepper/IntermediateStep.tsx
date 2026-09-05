@@ -18,6 +18,8 @@ interface IntermediateStepProps {
 	resetUserAllowedConnection: () => void;
 	connectedDevice: Device | null;
 	handleReset: () => void;
+	/** Se llama cuando el usuario confirma la conexión exitosamente (sin destruir la sesión activa). */
+	handleConfirmedSharing: () => void;
 }
 
 function getStepContent(
@@ -72,6 +74,7 @@ export default function IntermediateStep(
 		resetUserAllowedConnection,
 		connectedDevice,
 		handleReset,
+		handleConfirmedSharing,
 	} = props;
 
 	return (
@@ -97,17 +100,8 @@ export default function IntermediateStep(
 			process.env.RUN_MODE !== 'dev' &&
 			process.env.RUN_MODE !== 'test' ? (
 				<></>
-			) : activeStep === 0 ? (
-				<Button
-					onClick={() => {
-						// connectedDevicesService.setPendingConnectionDevice(DEVICES[Math.floor(Math.random() * DEVICES.length)]);
-					}}
-				>
-					Connect Test Device
-				</Button>
-			) : (
-				<></>
-			)}
+			) : <></>
+		}
 			{activeStep !== 0 ? (
 				<Row>
 					<Col xs={12}>
@@ -115,15 +109,22 @@ export default function IntermediateStep(
 							intent={activeStep === 2 ? 'success' : 'none'}
 							onClick={async () => {
 								if (isConfirmStep(activeStep, steps)) {
-									window.electron.ipcRenderer.invoke(
+									await window.electron.ipcRenderer.invoke(
 										IpcEvents.StartSharingOnWaitingForConnectionSharingSession,
 									);
 									resetPendingConnectionDevice();
 									resetUserAllowedConnection();
+									// La sesión ya está activa: solo reseteamos el stepper al paso 0
+									// sin destruir/recrear la sesión activa
+									setTimeout(() => {
+										handleConfirmedSharing();
+									}, 1000);
+								} else {
+									// En pasos intermedios sí se puede resetear normalmente
+									setTimeout(() => {
+										handleReset();
+									}, 1000);
 								}
-								setTimeout(() => {
-									handleReset();
-								}, 1000);
 							}}
 							style={{
 								display: activeStep === 1 ? 'none' : 'inline',

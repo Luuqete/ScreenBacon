@@ -35,7 +35,7 @@ function ErrorDialog(props: ErrorDialogProps) {
 			<Row center="xs" style={{ marginTop: '10px' }}>
 				<Col xs={12}>
 					<H3 className={Classes.TEXT_MUTED}>
-						{t('ScreenBacon CE Error Dialog')}
+						{t('ScreenBaconError Dialog')}
 					</H3>
 				</Col>
 			</Row>

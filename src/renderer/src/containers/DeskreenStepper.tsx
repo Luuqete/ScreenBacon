@@ -214,6 +214,15 @@ const ScreenBaconStepper = ({
 			);
 		}, [handleReset, t]);
 
+	/** Resetea el stepper al inicio tras confirmar una conexión exitosa.
+	 * A diferencia de handleReset, NO destruye la sesión activa. */
+	const handleConfirmedSharing = useCallback((): void => {
+		setActiveStep(0);
+		setPendingConnectionDevice(null);
+		setIsUserAllowedConnection(false);
+		setIsAllowDeviceAlertOpen(false);
+	}, [setActiveStep, setPendingConnectionDevice, setIsUserAllowedConnection, setIsAllowDeviceAlertOpen]);
+
 	const renderIntermediateOrSuccessStepContent = useCallback(() => {
 		return (
 			<div id="intermediate-step-container" style={{ width: '100%' }}>
@@ -227,6 +236,7 @@ const ScreenBaconStepper = ({
 					resetUserAllowedConnection={() => setIsUserAllowedConnection(false)}
 					connectedDevice={pendingConnectionDevice}
 					handleReset={handleReset}
+					handleConfirmedSharing={handleConfirmedSharing}
 				/>
 			</div>
 		);
@@ -234,6 +244,7 @@ const ScreenBaconStepper = ({
 		activeStep,
 		steps,
 		handleReset,
+		handleConfirmedSharing,
 		handleBack,
 		handleNextEntireScreen,
 		handleNextApplicationWindow,
@@ -281,7 +292,10 @@ const ScreenBaconStepper = ({
 		<>
 			<>
 				<Row style={{ width: '100%' }}>
-					<Col xs={12}>
+					{<Col xs={12}
+					
+						style={{ display:"none" }}
+					>
 						<Stepper
 							className={classes.stepperComponent}
 							activeStep={activeStep}
@@ -293,7 +307,8 @@ const ScreenBaconStepper = ({
 								<Step key={label}>{renderStepLabelContent(label, idx)}</Step>
 							))}
 						</Stepper>
-					</Col>
+					</Col>}
+					
 					<Col className={classes.stepContent} xs={12}>
 						{renderIntermediateOrSuccessStepContent()}
 					</Col>

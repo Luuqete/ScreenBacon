@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, H3, Icon, Position, Tag, Tooltip } from '@blueprintjs/core';
+import { Button, H3, Icon, Position, Tooltip } from '@blueprintjs/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Col, Row } from 'react-flexbox-grid';
 import SettingsOverlay from './SettingsOverlay/SettingsOverlay';
-import ConnectedDevicesListDrawer from './ConnectedDevicesListDrawer';
 import { useTranslation } from 'react-i18next';
-import { IpcEvents } from '../../../common/IpcEvents.enum';
+//import { IpcEvents } from '../../../common/IpcEvents.enum';
+import { ConnectedDevicesPanel } from './ConnectedDevicesPanel';
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -128,20 +128,11 @@ const useStyles = makeStyles(() =>
 	}),
 );
 
-interface Props {
-	handleReset: () => void;
-}
-
-export default function TopPanel({ handleReset }: Props): React.ReactElement {
+export default function TopPanel(): React.ReactElement {
 	const { t } = useTranslation();
 	const classes = useStyles();
 
 	const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
-	const [isConnectedDevicesDrawerOpen, setIsConnectedDevicesDrawerOpen] =
-		React.useState(false);
-	const [latestVersion, setLatestVersion] = React.useState('');
-	const [currentVersion, setCurrentVersion] = React.useState('');
-	const [connectedDevicesCount, setConnectedDevicesCount] = React.useState(0);
 
 	const handleSettingsOpen = React.useCallback(() => {
 		setIsSettingsOpen(true);
@@ -151,51 +142,7 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 		setIsSettingsOpen(false);
 	}, []);
 
-	const handleToggleConnectedDevicesListDrawer = React.useCallback(() => {
-		setIsConnectedDevicesDrawerOpen(!isConnectedDevicesDrawerOpen);
-	}, [isConnectedDevicesDrawerOpen]);
-
-	const donateTooltipContent = t('get-ScreenBacon-pro-tooltip');
-
-	const handleDonateButtonClick = React.useCallback(() => {
-		window.electron.ipcRenderer.invoke(
-			IpcEvents.OpenExternalLink,
-			'https://ScreenBacon.com/download',
-		);
-	}, []);
-
-	const handleTutorialButtonClick = React.useCallback(() => {
-		window.electron.ipcRenderer.invoke(
-			IpcEvents.OpenExternalLink,
-			'https://ScreenBacon.com/howto',
-		);
-	}, []);
-
-	const handleOpenDownloadPage = React.useCallback((): void => {
-		void window.electron.ipcRenderer.invoke(
-			IpcEvents.OpenExternalLink,
-			'https://ScreenBacon.com/download',
-		);
-	}, []);
-
-	React.useEffect(() => {
-		const fetchVersions = async (): Promise<void> => {
-			const [latest, current] = await Promise.all([
-				window.electron.ipcRenderer.invoke('get-latest-version'),
-				window.electron.ipcRenderer.invoke('get-current-version'),
-			]);
-			if (typeof latest === 'string') {
-				setLatestVersion(latest);
-			}
-			if (typeof current === 'string') {
-				setCurrentVersion(current);
-			}
-		};
-
-		void fetchVersions();
-	}, []);
-
-	React.useEffect(() => {
+	/*React.useEffect(() => {
 		const fetchConnectedDevicesCount = async (): Promise<void> => {
 			try {
 				const devices = await window.electron.ipcRenderer.invoke(
@@ -219,60 +166,9 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 		return () => {
 			clearInterval(connectedDevicesInterval);
 		};
-	}, []);
+	}, []);*/
 
-	const hasUpdate =
-		latestVersion !== '' &&
-		currentVersion !== '' &&
-		latestVersion !== currentVersion;
-
-	const renderDonateButton = (
-		<Tooltip content={donateTooltipContent} position={Position.BOTTOM}>
-			<Button
-				id="top-panel-donate-button"
-				className={classes.donateButton}
-				onClick={handleDonateButtonClick}
-			>
-				<div className={classes.donateButtonContent}>
-					<Icon
-						className={classes.donateButtonIcon}
-						icon="clean"
-						size={20}
-						color="#D4AF37"
-					/>
-					<span className={classes.donateButtonLabel}>
-						{t('get-ScreenBacon-pro')}
-					</span>
-				</div>
-			</Button>
-		</Tooltip>
-	);
-
-	const renderConnectedDevicesListButton = (
-		<div className={classes.topPanelControlButtonMargin}>
-			<Tooltip content={t('connected-devices')} position={Position.BOTTOM}>
-				<Button
-					id="top-panel-connected-devices-list-button"
-					intent="primary"
-					className={classes.topPanelControlButton}
-					onClick={handleToggleConnectedDevicesListDrawer}
-				>
-					<Icon
-						className={classes.topPanelIconOfControlButton}
-						icon="th-list"
-						size={20}
-					/>
-				</Button>
-			</Tooltip>
-			{connectedDevicesCount > 0 && (
-				<span className={classes.connectedDevicesBadge}>
-					{connectedDevicesCount}
-				</span>
-			)}
-		</div>
-	);
-
-	const renderTutorialButton = (
+	/*const renderTutorialButton = (
 		<div className={classes.topPanelControlButtonMargin}>
 			<Tooltip content={t('tutorial')} position={Position.BOTTOM}>
 				<Button
@@ -288,9 +184,9 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 				</Button>
 			</Tooltip>
 		</div>
-	);
+	);*/
 
-	const renderHelpButton = (
+	/*const renderHelpButton = (
 		<div className={classes.topPanelControlButtonMargin}>
 			<Tooltip content={t('fix-reset-tooltip')} position={Position.BOTTOM}>
 				<Button
@@ -313,7 +209,7 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 				</Button>
 			</Tooltip>
 		</div>
-	);
+	);*/
 
 	const renderSettingsButton = (
 		<div className={classes.topPanelControlButtonMargin}>
@@ -348,33 +244,12 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 				<Row middle="xs" center="xs" style={{ width: '100%' }}>
 					<Col>{renderLogoWithAppName}</Col>
 				</Row>
-				<div className={classes.donateButtonRoot}>{renderDonateButton}</div>
+			
 				<div className={classes.topPanelControlsWrapper}>
 					<div className={classes.topPanelControlButtonsRoot}>
-						{renderConnectedDevicesListButton}
-						{renderHelpButton}
-						{renderTutorialButton}
 						{renderSettingsButton}
 					</div>
-					{hasUpdate ? (
-						<Tag
-							minimal
-							intent="success"
-							round
-							className={classes.updateBadge}
-							role="button"
-							onClick={handleOpenDownloadPage}
-							onKeyDown={(event) => {
-								if (event.key === 'Enter' || event.key === ' ') {
-									event.preventDefault();
-									handleOpenDownloadPage();
-								}
-							}}
-							tabIndex={0}
-						>
-							{t('new-version-available')}
-						</Tag>
-					) : null}
+					
 				</div>
 			</div>
 			{isSettingsOpen ? (
@@ -385,15 +260,9 @@ export default function TopPanel({ handleReset }: Props): React.ReactElement {
 			) : (
 				<></>
 			)}
-			{isConnectedDevicesDrawerOpen ? (
-				<ConnectedDevicesListDrawer
-					isOpen={isConnectedDevicesDrawerOpen}
-					handleToggle={handleToggleConnectedDevicesListDrawer}
-					handleReset={handleReset}
-				/>
-			) : (
-				<></>
-			)}
+			
+			<ConnectedDevicesPanel/>
+			
 		</>
 	);
 }

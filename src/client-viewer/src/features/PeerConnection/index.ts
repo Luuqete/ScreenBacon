@@ -87,6 +87,15 @@ export default class PeerConnection {
 		this.createUserAndInitSocket();
 		this.createPeer();
 
+		this.socket.on('disconnect', (reason: string) => {
+			console.log(`Socket desconectado con razón: ${reason}`);
+
+			// Avisar al contenedor Android vía el puente
+			if (window.AndroidBridge?.onSocketDisconnected) {
+				window.AndroidBridge.onSocketDisconnected(reason);
+			}
+		});
+
 		if (!this.roomId || this.roomId === '') {
 			setAndShowErrorDialogMessage(this, ErrorMessage.NOT_ALLOWED);
 		}
